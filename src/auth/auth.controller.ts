@@ -1,6 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
+import { JwtTokens } from './types/JwtTokens.type';
 
 @Controller('auth')
 export class AuthController {
@@ -12,7 +13,8 @@ export class AuthController {
   }
 
   @Post('signin')
-  signin(@Body() dto: AuthDto) {
+  @HttpCode(HttpStatus.OK)
+  signin(@Body() dto: AuthDto): Promise<JwtTokens> {
     return this.authService.signin(dto);
   }
 }
