@@ -6,13 +6,14 @@ import { JwtPayload } from './types';
 export class UserService {
   constructor(private prismaService: PrismaService) {}
 
-  async current_user(payload: JwtPayload) {
+  async current_user(sig: JwtPayload) {
     const user = await this.prismaService.user.findUnique({
       where: {
-        email: payload.email,
-        id: payload.sub,
+        email: sig.email,
       },
     });
+
+    delete user.hash;
     return user;
   }
 }
