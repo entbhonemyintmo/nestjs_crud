@@ -1,7 +1,8 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AtGuard } from 'src/common/guards';
-import { Request } from 'express';
+import { GetUser } from 'src/common/decorators';
+import { User } from '@prisma/client';
 
 @Controller('users')
 export class UserController {
@@ -9,7 +10,8 @@ export class UserController {
 
   @UseGuards(AtGuard)
   @Get('me')
-  current_user(@Req() req: Request) {
-    console.log(req.user);
+  current_user(@GetUser() user: User) {
+    delete user.hash;
+    return user;
   }
 }

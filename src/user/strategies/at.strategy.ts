@@ -6,14 +6,6 @@ import { JwtPayload } from '../types';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-// export class AtStrategy extends PassportStrategy(Strategy, 'jwt') {
-//   constructor(config: ConfigService) {
-//     super({
-//       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//       secretOrKey: config.get('JWT_ACCESS_SECRET'),
-//       passReqToCallback: true,
-//     });
-//   }
 export class AtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(config: ConfigService, private prisma: PrismaService) {
     super({
